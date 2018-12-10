@@ -25,6 +25,8 @@ greatest_increase = 0
 greatest_decrease = 0
 greatest_increase_month = ""
 greatest_decrease_month = ""
+month_col = 0
+value_col = 1
 
 # Path for budget_data.csv file
 csvpath = os.path.join('Resources', 'budget_data.csv')
@@ -50,25 +52,25 @@ try:
             total_month = total_month +1
 
             # Add up total amount
-            total_amount = total_amount + int(row[1])
+            total_amount = total_amount + int(row[value_col])
 
             # Calculate total change first. Do not have total number of months at this point.
             # Calculate average change after the loop.
             # Calculate from the 2nd month
-            current_change = int(row[1]) - previous_amount
+            current_change = int(row[value_col]) - previous_amount
             if previous_amount != 0:
                 total_change = total_change + current_change
-            previous_amount = int(row[1])
+            previous_amount = int(row[value_col])
 
             # Calculate greatest increase
             if current_change > greatest_increase:
                 greatest_increase = current_change
-                greatest_increase_month = row[0]
+                greatest_increase_month = row[month_col]
 
             # Calculate greatest decrease
             if (greatest_decrease > current_change):
                 greatest_decrease = current_change
-                greatest_decrease_month = row[0]
+                greatest_decrease_month = row[month_col]
 
         # Calculate average change. Change starts from 2nd month. 
         # So total change should be divided by total number of months minus 1
@@ -81,11 +83,11 @@ try:
         # Compose results
         result = "Financial Analysis \n"
         result = result + "------------------------------- \n"
-        result = result + "Total Months: " + str(total_month) + "\n"
-        result = result + "Total: " + str(total_amount) + "\n"
-        result = result + "Average Change: $" + str(average_change) + "\n"
-        result = result + "Greatest Increase in Profits: " + greatest_increase_month + " (" + str(round(greatest_increase, 0)) + ")\n"
-        result = result + "Greatest Decrease in Profits: " + greatest_decrease_month + " (" + str(round(greatest_decrease, 0)) + ")\n"
+        result = result + f"Total Months: {total_month} \n"
+        result = result + f"Total: {total_amount} \n"
+        result = result + f"Average Change: ${average_change} \n"
+        result = result + f"Greatest Increase in Profits: {greatest_increase_month} ({round(greatest_increase, 0)}) \n"
+        result = result + f"Greatest Decrease in Profits: {greatest_decrease_month} ({round(greatest_decrease, 0)}) \n"
 
         # Print result to terminal
         print(result)
