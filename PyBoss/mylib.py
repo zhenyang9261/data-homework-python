@@ -2,9 +2,11 @@
 # Date: 12-10-2018
 # Author: Zhen Yang
 # Purpose: This is a library file that contains the following functions:
-# - lookupState
-# Go to the function to see detailed information
+# - formatHeader, formatName, formatDate, formatSSN, formatState
+# Go to the functions to see detailed information
 
+# Source of Python Dictionary of State Abbrevation
+# https://gist.github.com/afhaque/29f0f4f37463c447770517a6c17d08f5
 us_state_abbrev = {
     'Alabama': 'AL',
     'Alaska': 'AK',
@@ -57,6 +59,21 @@ us_state_abbrev = {
     'Wisconsin': 'WI',
     'Wyoming': 'WY',
 }
+
+# Re-write the header. Header was read in a certain format. Need to:
+# Remove first and last brackets, remove spaces, remove single quotation marks
+# input: ['Emp ID', 'Name', 'DOB', 'SSN', 'State'] 
+# return: Emp ID,Name,DOB,SSN,State 
+def formatHeader(old_header):
+
+    # Remove first and last brackets
+    new_header = old_header[1:-1]
+    # Remove spaces
+    new_header = new_header.replace("'", "")
+    # Remove single quotation marks
+    new_header = new_header.replace(" ", "")
+
+    return new_header
 
 # Split Name into separate First Name and Last Name columns.
 # input: first last

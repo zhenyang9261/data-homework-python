@@ -16,7 +16,7 @@ import os
 import csv
 
 # Import functions from the library file
-from mylib import formatName, formatDate, formatSSN, formatState
+from mylib import formatHeader, formatName, formatDate, formatSSN, formatState
 
 # Path for data file
 csvpath = os.path.join('Resources', 'employee_data.csv')
@@ -30,7 +30,7 @@ try:
         # CSV reader specifies delimiter and variable that holds contents
         csvreader = csv.reader(csvfile, delimiter=',')
 
-        # Skip the header row 
+        # Read the header row 
         csv_header = next(csvreader)
 
         # Create output file
@@ -39,7 +39,8 @@ try:
         output_file = open("Output/new_employee_data.csv", "w")
 
         # Write header in result first
-        output_file.write(f"{csv_header} \n")
+        new_header = formatHeader(str(csv_header))
+        output_file.write(f"{new_header} \n")
 
         # Loop though rows and re-write content to new file
         for row in csvreader:
@@ -65,5 +66,5 @@ except OSError as e:
     print("OS error: " + str(e))
 
 # Handle other errors such as empty data file, wrong delimiter
-#except: 
-#   print("Unexpected error. Please check the data")
+except: 
+   print("Unexpected error. Please check the data")
