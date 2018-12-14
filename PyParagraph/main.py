@@ -26,8 +26,8 @@ try:
         # Split paragrash into words
         words = paragraph.split()
         
-        # Split paragraph into sentences
-        sentences = re.split("(?<=[.!?]) +", paragraph)
+        # Split paragraph into sentences. 
+        sentences = re.split("(?<=[.!?]) +|(?<=[.!?])+", paragraph)
 
         # Word Count
         word_count = len(words)
